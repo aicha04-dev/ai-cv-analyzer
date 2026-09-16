@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     && docker-php-ext-install \
     intl \
-    pdo_mysql \
+    pdo_pgsql \
     opcache \
     zip \
     && a2enmod rewrite

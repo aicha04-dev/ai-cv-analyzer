@@ -53,4 +53,4 @@ RUN printf '%s\n' \
 
 EXPOSE 80
 
-CMD ["sh", "-c", "chown -R www-data:www-data var public/uploads && php bin/console doctrine:migrations:migrate --no-interaction --env=prod && apache2-foreground"]
+CMD ["sh", "-c", "php bin/console doctrine:migrations:migrate --no-interaction --env=prod && chown -R www-data:www-data var public/uploads && apache2-foreground"]

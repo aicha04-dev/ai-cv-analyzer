@@ -35,6 +35,9 @@ RUN printf '%s\n' \
     '</VirtualHost>' \
     > /etc/apache2/sites-available/000-default.conf
 
+ENV APP_ENV=prod
+ENV APP_DEBUG=0
+
 EXPOSE 80
 
 CMD ["apache2-foreground"]

@@ -2,11 +2,19 @@
 
 use App\Kernel;
 
-require_once dirname(__DIR__).'/vendor/autoload.php';
+if (!isset($_SERVER['APP_ENV'])) {
+    $_SERVER['APP_ENV'] = 'prod';
+}
+
+if (!isset($_SERVER['APP_DEBUG'])) {
+    $_SERVER['APP_DEBUG'] = '0';
+}
+
+require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
 return static function (array $context) {
     return new Kernel(
-        $_SERVER['APP_ENV'] ?? $_ENV['APP_ENV'] ?? 'prod',
-        (bool) ($_SERVER['APP_DEBUG'] ?? $_ENV['APP_DEBUG'] ?? false)
+        $context['APP_ENV'],
+        (bool) $context['APP_DEBUG']
     );
 };

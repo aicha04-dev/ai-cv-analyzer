@@ -16,7 +16,7 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
 
 RUN mkdir -p var public/uploads \
     && chown -R www-data:www-data var public/uploads
@@ -34,4 +34,4 @@ RUN a2enconf symfony
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD ["sh", "-c", "php bin/console cache:clear --env=prod && apache2-foreground"]

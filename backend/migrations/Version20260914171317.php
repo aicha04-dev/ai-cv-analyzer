@@ -7,9 +7,6 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Add created_at to JobMatch.
- */
 final class Version20260914171317 extends AbstractMigration
 {
     public function getDescription(): string
@@ -21,7 +18,7 @@ final class Version20260914171317 extends AbstractMigration
     {
         // 1. Add the column temporarily as nullable
         $this->addSql(
-            'ALTER TABLE job_match ADD created_at DATETIME DEFAULT NULL'
+            'ALTER TABLE job_match ADD created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL'
         );
 
         // 2. Give existing matches a valid date
@@ -31,7 +28,7 @@ final class Version20260914171317 extends AbstractMigration
 
         // 3. Make the column required
         $this->addSql(
-            'ALTER TABLE job_match MODIFY created_at DATETIME NOT NULL'
+            'ALTER TABLE job_match ALTER COLUMN created_at SET NOT NULL'
         );
     }
 

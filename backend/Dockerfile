@@ -33,8 +33,9 @@ RUN composer install \
     --prefer-dist \
     --no-scripts
 
-RUN mkdir -p var public/uploads \
-    && chown -R www-data:www-data var public/uploads
+RUN mkdir -p var/cache var/log public/uploads \
+    && chown -R www-data:www-data var public/uploads \
+    && chmod -R 775 var public/uploads
 
 RUN printf '%s\n' \
     '<VirtualHost *:80>' \
@@ -52,4 +53,4 @@ RUN printf '%s\n' \
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php bin/console doctrine:migrations:migrate --no-interaction --env=prod && apache2-foreground"]
+CMD ["sh", "-c", "chown -R www-data:www-data var public/uploads && php bin/console doctrine:migrations:migrate --no-interaction --env=prod && apache2-foreground"]

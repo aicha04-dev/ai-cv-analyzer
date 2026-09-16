@@ -52,4 +52,4 @@ RUN printf '%s\n' \
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD ["sh", "-c", "php bin/console doctrine:migrations:migrate --no-interaction --env=prod && apache2-foreground"]

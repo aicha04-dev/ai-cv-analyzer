@@ -16,6 +16,16 @@ WORKDIR /var/www/html
 
 COPY . .
 
+# Production environment
+ENV APP_ENV=prod
+ENV APP_DEBUG=0
+
+# Create a minimal .env so Symfony Runtime does not fail
+RUN printf '%s\n' \
+    'APP_ENV=prod' \
+    'APP_DEBUG=0' \
+    > .env
+
 RUN composer install \
     --no-dev \
     --optimize-autoloader \
@@ -35,16 +45,10 @@ RUN printf '%s\n' \
     '        Require all granted' \
     '    </Directory>' \
     '' \
-    '    SetEnv APP_ENV prod' \
-    '    SetEnv APP_DEBUG 0' \
-    '' \
     '    ErrorLog ${APACHE_LOG_DIR}/error.log' \
     '    CustomLog ${APACHE_LOG_DIR}/access.log combined' \
     '</VirtualHost>' \
     > /etc/apache2/sites-available/000-default.conf
-
-ENV APP_ENV=prod
-ENV APP_DEBUG=0
 
 EXPOSE 80
 

@@ -1,0 +1,33 @@
+parameters:
+    app.upload_directory: '%kernel.project_dir%/public/uploads'
+    adzuna.app_id: '%env(ADZUNA_APP_ID)%'
+    adzuna.app_key: '%env(ADZUNA_APP_KEY)%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    App\Service\FileUploader:
+        arguments:
+            $uploadDirectory: '%app.upload_directory%'
+
+    App\Service\GeminiService:
+        arguments:
+            $apiKey: '%env(GEMINI_API_KEY)%'
+
+    App\Service\AdzunaService:
+        arguments:
+            $appId: '%adzuna.app_id%'
+            $appKey: '%adzuna.app_key%'

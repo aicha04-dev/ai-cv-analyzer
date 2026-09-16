@@ -1,0 +1,435 @@
+/* =========================================================
+   RECOMMENDED JOB CARD
+========================================================= */
+
+.recommended-job-card {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 26px;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.045)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.recommended-job-card:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(168, 85, 247, 0.45);
+
+  box-shadow:
+    0 25px 55px rgba(0, 0, 0, 0.28),
+    0 0 35px rgba(168, 85, 247, 0.08);
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.recommended-job-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 14px;
+}
+
+.company-info {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  min-width: 0;
+  flex: 1;
+}
+
+.company-logo {
+  width: 52px;
+  height: 52px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
+  color: #ffffff;
+
+  font-size: 21px;
+  font-weight: 800;
+
+  box-shadow:
+    0 8px 20px rgba(99, 102, 241, 0.25);
+}
+
+.company-details {
+  min-width: 0;
+  flex: 1;
+}
+
+.company-details h3 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 750;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.company-details p {
+  margin: 5px 0 0;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  font-size: 13px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+.recommended-category {
+  flex-shrink: 0;
+
+  max-width: 120px;
+
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.07);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  color: rgba(255, 255, 255, 0.62);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
+   JOB CONTENT
+========================================================= */
+
+.recommended-job-content {
+  flex: 1;
+
+  margin-top: 24px;
+}
+
+.recommended-job-content h2 {
+  margin: 0;
+
+  min-height: 52px;
+
+  color: #ffffff;
+
+  font-size: 19px;
+  line-height: 1.35;
+  font-weight: 750;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+
+  overflow: hidden;
+}
+
+.recommended-job-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 10px;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  font-size: 13px;
+}
+
+.meta-dot {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+.recommended-skills {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 20px;
+
+  min-height: 32px;
+}
+
+.recommended-skill {
+  max-width: 100%;
+
+  padding: 7px 11px;
+
+  border-radius: 9px;
+
+  background: rgba(168, 85, 247, 0.13);
+
+  border: 1px solid rgba(168, 85, 247, 0.16);
+
+  color: rgba(255, 255, 255, 0.67);
+
+  font-size: 11px;
+  font-weight: 650;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.recommended-job-actions {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1fr;
+
+  gap: 9px;
+
+  margin-top: 25px;
+}
+
+.recommended-details-button,
+.recommended-match-button,
+.recommended-apply-button {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 7px;
+
+  box-sizing: border-box;
+
+  border-radius: 11px;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+}
+
+/* =========================================================
+   VIEW DETAILS
+========================================================= */
+
+.recommended-details-button {
+  background: rgba(255, 255, 255, 0.045);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.recommended-details-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   MATCH CV
+========================================================= */
+
+.recommended-match-button {
+  background: rgba(168, 85, 247, 0.08);
+
+  border: 1px solid rgba(168, 85, 247, 0.4);
+
+  color: #c084fc;
+
+  cursor: pointer;
+}
+
+.recommended-match-button:hover:not(:disabled) {
+  background: rgba(168, 85, 247, 0.18);
+
+  transform: translateY(-1px);
+}
+
+.recommended-match-button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   APPLY
+========================================================= */
+
+.recommended-apply-button {
+  background:
+    linear-gradient(
+      135deg,
+      #a855f7,
+      #9333ea
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  color: #ffffff;
+
+  box-shadow:
+    0 8px 20px rgba(168, 85, 247, 0.2);
+}
+
+.recommended-apply-button:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 10px 25px rgba(168, 85, 247, 0.3);
+}
+
+/* =========================================================
+   MEDIUM DESKTOP
+========================================================= */
+
+@media (max-width: 1100px) {
+  .recommended-job-card {
+    padding: 22px;
+  }
+
+  .recommended-job-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .recommended-details-button,
+  .recommended-match-button,
+  .recommended-apply-button {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+  .recommended-job-card {
+    padding: 22px;
+  }
+
+  .recommended-job-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .recommended-details-button,
+  .recommended-match-button,
+  .recommended-apply-button {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+  .recommended-job-card {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .company-logo {
+    width: 46px;
+    height: 46px;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+  }
+
+  .company-details h3 {
+    font-size: 14px;
+  }
+
+  .company-details p {
+    font-size: 12px;
+  }
+
+  .recommended-job-content h2 {
+    font-size: 17px;
+  }
+}

@@ -1,0 +1,496 @@
+.job-details {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 70px;
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-button {
+  border: none;
+  background: transparent;
+  color: #7c3aed;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 0;
+  margin-bottom: 25px;
+}
+
+.back-button:hover {
+  color: #5b21b6;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.job-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding: 35px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.job-title-area {
+  flex: 1;
+}
+
+.match-label {
+  display: inline-block;
+  color: #7c3aed;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.job-title-area h2 {
+  margin: 0 0 14px;
+  color: #111827;
+  font-size: 34px;
+  line-height: 1.2;
+}
+
+.job-company,
+.job-location {
+  margin: 7px 0;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+/* =========================
+   MATCH BUTTON
+========================= */
+
+.match-job-button {
+  min-width: 190px;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 20px;
+  background: #7c3aed;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.match-job-button:hover:not(:disabled) {
+  background: #6d28d9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+}
+
+.match-job-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* =========================
+   ERROR
+========================= */
+
+.error {
+  margin: 20px 0;
+  padding: 14px 18px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+/* =========================
+   MAIN INFORMATION
+========================= */
+
+.job-details-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-top: 25px;
+}
+
+.job-description-card,
+.job-info-card,
+.required-skills-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+.job-description-card h3,
+.job-info-card h3,
+.required-skills-card h3 {
+  margin: 0 0 18px;
+  color: #111827;
+  font-size: 19px;
+}
+
+.job-description-card p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+/* =========================
+   JOB INFORMATION
+========================= */
+
+.job-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.job-info-item:last-child {
+  border-bottom: none;
+}
+
+.job-info-item strong {
+  color: #6b7280;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.job-info-item span {
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================
+   REQUIRED SKILLS
+========================= */
+
+.required-skills-card {
+  margin-top: 25px;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.skill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =========================
+   AI MATCH RESULT
+========================= */
+
+.job-details-match {
+  margin-top: 30px;
+  padding: 32px;
+  background: linear-gradient(
+    135deg,
+    #faf5ff,
+    #ffffff
+  );
+  border: 1px solid #ddd6fe;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.08);
+}
+
+.match-header {
+  margin-bottom: 30px;
+}
+
+.match-header h3 {
+  margin: 5px 0 8px;
+  color: #111827;
+  font-size: 24px;
+}
+
+.match-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* =========================
+   SCORE
+========================= */
+
+.score-container {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding: 25px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+}
+
+.score-circle {
+  --score: 0%;
+
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    conic-gradient(
+      #7c3aed var(--score),
+      #e5e7eb var(--score)
+    );
+}
+
+.score-inner {
+  width: 115px;
+  height: 115px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+  border-radius: 50%;
+}
+
+.score-inner strong {
+  color: #7c3aed;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.score-inner span {
+  margin-top: 6px;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.score-info h4 {
+  margin: 0 0 8px;
+  color: #111827;
+  font-size: 20px;
+}
+
+.score-info p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================
+   MATCHED / MISSING SKILLS
+========================= */
+
+.match-skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.match-skills-card {
+  padding: 24px;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+}
+
+.match-skills-card.matched {
+  border-color: #bbf7d0;
+}
+
+.match-skills-card.missing {
+  border-color: #fed7aa;
+}
+
+.skills-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.skills-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  background: #f3f4f6;
+
+  color: #374151;
+  font-weight: 800;
+}
+
+.skills-card-header h4 {
+  margin: 0 0 3px;
+  color: #111827;
+  font-size: 16px;
+}
+
+.skills-card-header span {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.matched-skill {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.missing-skill {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.empty-skills {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* =========================
+   AI EXPLANATION
+========================= */
+
+.ai-explanation {
+  display: flex;
+  gap: 18px;
+  margin-top: 25px;
+  padding: 25px;
+  background: white;
+  border: 1px solid #ddd6fe;
+  border-radius: 16px;
+}
+
+.explanation-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  background: #ede9fe;
+  font-size: 20px;
+}
+
+.explanation-content {
+  flex: 1;
+}
+
+.explanation-content h4 {
+  margin: 3px 0 10px;
+  color: #111827;
+  font-size: 17px;
+}
+
+.explanation-content p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .job-details-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .match-job-button {
+    width: 100%;
+  }
+
+  .job-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .match-skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .job-details {
+    padding: 25px 15px 50px;
+  }
+
+  .job-details-header {
+    padding: 25px;
+  }
+
+  .job-title-area h2 {
+    font-size: 26px;
+  }
+
+  .job-description-card,
+  .job-info-card,
+  .required-skills-card {
+    padding: 22px;
+  }
+
+  .job-details-match {
+    padding: 22px;
+  }
+
+  .score-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .score-circle {
+    width: 135px;
+    height: 135px;
+  }
+
+  .score-inner {
+    width: 103px;
+    height: 103px;
+  }
+
+  .score-inner strong {
+    font-size: 26px;
+  }
+
+  .ai-explanation {
+    flex-direction: column;
+  }
+}

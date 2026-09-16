@@ -34,4 +34,4 @@ RUN a2enconf symfony
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php bin/console cache:clear --env=prod && apache2-foreground"]
+CMD ["apache2-foreground"]

@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libicu-dev \
     libzip-dev \
+    libpq-dev \
     && docker-php-ext-install -j$(nproc) intl pdo_pgsql zip opcache \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*

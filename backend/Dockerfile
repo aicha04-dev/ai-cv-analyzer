@@ -16,7 +16,12 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --no-interaction \
+    --prefer-dist \
+    --no-scripts
 
 RUN mkdir -p var public/uploads \
     && chown -R www-data:www-data var public/uploads
@@ -29,6 +34,9 @@ RUN printf '%s\n' \
     '        AllowOverride All' \
     '        Require all granted' \
     '    </Directory>' \
+    '' \
+    '    SetEnv APP_ENV prod' \
+    '    SetEnv APP_DEBUG 0' \
     '' \
     '    ErrorLog ${APACHE_LOG_DIR}/error.log' \
     '    CustomLog ${APACHE_LOG_DIR}/access.log combined' \

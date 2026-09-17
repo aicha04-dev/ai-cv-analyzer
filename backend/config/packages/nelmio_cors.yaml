@@ -3,6 +3,8 @@ nelmio_cors:
         origin_regex: false
         allow_origin:
             - 'http://127.0.0.1:5173'
+            - 'http://localhost:5173'
+            - 'https://ai-cv-analyzer-n131fx5l7-ai-cv-matcher.vercel.app'
         allow_methods:
             - GET
             - OPTIONS
@@ -13,15 +15,18 @@ nelmio_cors:
         allow_headers:
             - Content-Type
             - Authorization
+            - Accept
         expose_headers:
             - Link
         max_age: 3600
         allow_credentials: true
 
     paths:
-        '^/':
+        '^/api/':
             allow_origin:
                 - 'http://127.0.0.1:5173'
+                - 'http://localhost:5173'
+                - 'https://ai-cv-analyzer-n131fx5l7-ai-cv-matcher.vercel.app'
             allow_methods:
                 - GET
                 - OPTIONS
@@ -32,6 +37,7 @@ nelmio_cors:
             allow_headers:
                 - Content-Type
                 - Authorization
+                - Accept
             expose_headers:
                 - Link
             max_age: 3600

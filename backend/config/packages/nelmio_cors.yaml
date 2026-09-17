@@ -4,7 +4,7 @@ nelmio_cors:
         allow_origin:
             - 'http://127.0.0.1:5173'
             - 'http://localhost:5173'
-            - 'https://ai-cv-analyzer-n131fx5l7-ai-cv-matcher.vercel.app'
+            - 'https://ai-cv-analyzer-n131fx517-ai-cv-matcher.vercel.app'
         allow_methods:
             - GET
             - OPTIONS
@@ -26,7 +26,7 @@ nelmio_cors:
             allow_origin:
                 - 'http://127.0.0.1:5173'
                 - 'http://localhost:5173'
-                - 'https://ai-cv-analyzer-n131fx5l7-ai-cv-matcher.vercel.app'
+                - 'https://ai-cv-analyzer-n131fx517-ai-cv-matcher.vercel.app'
             allow_methods:
                 - GET
                 - OPTIONS

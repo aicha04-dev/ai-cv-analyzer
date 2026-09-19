@@ -16,11 +16,15 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+
             custom_authenticators:
                 - App\Security\GoogleAuthenticator
 
+            logout:
+                path: /api/logout
+
     access_control:
-    - { path: ^/api/cv/upload$, roles: ROLE_USER }
+    - { path: ^/api/job-match$, roles: ROLE_USER }
 
 when@test:
     security:

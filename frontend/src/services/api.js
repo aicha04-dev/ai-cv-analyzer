@@ -41,7 +41,6 @@ export async function uploadCV(file) {
   }
 
   const formData = new FormData();
-
   formData.append("cv", file);
 
   const response = await fetch(
@@ -49,7 +48,6 @@ export async function uploadCV(file) {
     {
       method: "POST",
       body: formData,
-      credentials: "include",
     }
   );
 
@@ -68,12 +66,6 @@ export async function uploadCV(file) {
       text
     );
 
-    if (response.status === 401) {
-      throw new Error(
-        "You are not logged in. Please sign in with Google first."
-      );
-    }
-
     throw new Error(
       `Server error (${response.status})`
     );
@@ -84,7 +76,7 @@ export async function uploadCV(file) {
       data?.details ||
       data?.error ||
       data?.message ||
-      "CV upload failed"
+      `CV upload failed (${response.status})`
     );
   }
 

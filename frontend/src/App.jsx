@@ -17,14 +17,7 @@ import {
   uploadCV,
   searchJobs,
   getSalaryOptions,
-  getCurrentUser,
 } from "./services/api";
-
-import {
-  savePendingCV,
-  getPendingCV,
-  removePendingCV,
-} from "./services/cvStorage";
 
 import { matchCV } from "./api/jobMatch";
 
@@ -34,16 +27,13 @@ import { matchCV } from "./api/jobMatch";
 // =========================================================
 
 function JobDetailsPage({ jobs, cv }) {
-  const currentPath =
-    window.location.pathname;
+  const currentPath = window.location.pathname;
 
-  const jobId =
-    currentPath.split("/").pop();
+  const jobId = currentPath.split("/").pop();
 
   const job = jobs.find(
     (item) =>
-      String(item.id) ===
-      String(jobId)
+      String(item.id) === String(jobId)
   );
 
   // -------------------------------------------------------
@@ -99,22 +89,18 @@ function App() {
   // JOBS
   // =======================================================
 
-  const [jobs, setJobs] =
-    useState([]);
+  const [jobs, setJobs] = useState([]);
 
-  const [error, setError] =
-    useState("");
+  const [error, setError] = useState("");
 
 
   // =======================================================
   // PAGINATION
   // =======================================================
 
-  const [currentPage, setCurrentPage] =
-    useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const [totalJobs, setTotalJobs] =
-    useState(0);
+  const [totalJobs, setTotalJobs] = useState(0);
 
   const ITEMS_PER_PAGE = 30;
 
@@ -122,8 +108,7 @@ function App() {
     Math.max(
       1,
       Math.ceil(
-        totalJobs /
-        ITEMS_PER_PAGE
+        totalJobs / ITEMS_PER_PAGE
       )
     );
 
@@ -225,19 +210,13 @@ function App() {
 
         setSalaryRange({
           minSalary:
-            Number(
-              range?.minSalary
-            ) || 0,
+            Number(range?.minSalary) || 0,
 
           maxSalary:
-            Number(
-              range?.maxSalary
-            ) || 0,
+            Number(range?.maxSalary) || 0,
 
           step:
-            Number(
-              range?.step
-            ) || 10000,
+            Number(range?.step) || 10000,
         });
 
       } catch (err) {
@@ -261,134 +240,10 @@ function App() {
 
 
   // =======================================================
-  // RESUME CV ANALYSIS AFTER GOOGLE LOGIN
-  // =======================================================
-
-  useEffect(() => {
-
-    async function resumeCVAnalysis() {
-
-      const shouldResume =
-        sessionStorage.getItem(
-          "resume_cv_analysis"
-        );
-
-      if (
-        shouldResume !== "true"
-      ) {
-        return;
-      }
-
-      console.log(
-        "================================="
-      );
-
-      console.log(
-        "🔄 Resuming CV analysis after login..."
-      );
-
-      console.log(
-        "================================="
-      );
-
-      try {
-
-        // ================================================
-        // CHECK LOGIN
-        // ================================================
-
-        console.log(
-          "🔐 Checking authentication..."
-        );
-
-        const currentUser =
-          await getCurrentUser();
-
-        if (
-          !currentUser?.authenticated
-        ) {
-
-          console.log(
-            "❌ User is still not authenticated."
-          );
-
-          return;
-        }
-
-        console.log(
-          "✅ User is authenticated."
-        );
-
-        console.log(
-          "👤 User:",
-          currentUser.user
-        );
-
-
-        // ================================================
-        // GET TEMPORARY CV
-        // ================================================
-
-        const pendingCV =
-          await getPendingCV();
-
-        if (!pendingCV) {
-
-          console.log(
-            "⚠️ No pending CV found."
-          );
-
-          sessionStorage.removeItem(
-            "resume_cv_analysis"
-          );
-
-          return;
-        }
-
-        console.log(
-          "📄 Pending CV found:",
-          pendingCV.name
-        );
-
-
-        // ================================================
-        // ANALYZE CV
-        // ================================================
-
-        await analyzeCV(
-          pendingCV
-        );
-
-      } catch (err) {
-
-        console.error(
-          "❌ Failed to resume CV analysis:",
-          err
-        );
-
-        setError(
-          err.message ||
-          "Unable to continue CV analysis."
-        );
-
-        sessionStorage.removeItem(
-          "resume_cv_analysis"
-        );
-      }
-    }
-
-    resumeCVAnalysis();
-
-  }, []);
-
-
-  // =======================================================
   // LOAD JOBS
   // =======================================================
 
-  async function loadJobs(
-    page = 1
-  ) {
+  async function loadJobs(page = 1) {
 
     try {
 
@@ -415,28 +270,18 @@ function App() {
       );
 
       const loadedJobs =
-        Array.isArray(
-          data?.jobs
-        )
+        Array.isArray(data?.jobs)
           ? data.jobs
           : [];
 
       const total =
-        Number(
-          data?.total
-        ) || 0;
+        Number(data?.total) || 0;
 
-      setJobs(
-        loadedJobs
-      );
+      setJobs(loadedJobs);
 
-      setTotalJobs(
-        total
-      );
+      setTotalJobs(total);
 
-      setCurrentPage(
-        page
-      );
+      setCurrentPage(page);
 
       console.log(
         `✅ Jobs loaded: ${loadedJobs.length}`
@@ -467,17 +312,12 @@ function App() {
 
   function handleNextPage() {
 
-    if (
-      currentPage <
-      totalPages
-    ) {
+    if (currentPage < totalPages) {
 
       const nextPage =
         currentPage + 1;
 
-      loadJobs(
-        nextPage
-      );
+      loadJobs(nextPage);
 
       window.scrollTo({
         top: 0,
@@ -493,16 +333,12 @@ function App() {
 
   function handlePreviousPage() {
 
-    if (
-      currentPage > 1
-    ) {
+    if (currentPage > 1) {
 
       const previousPage =
         currentPage - 1;
 
-      loadJobs(
-        previousPage
-      );
+      loadJobs(previousPage);
 
       window.scrollTo({
         top: 0,
@@ -520,9 +356,7 @@ function App() {
 
     try {
 
-      setSearching(
-        true
-      );
+      setSearching(true);
 
       setError("");
 
@@ -544,9 +378,7 @@ function App() {
       );
 
       const data =
-        await searchJobs(
-          filters
-        );
+        await searchJobs(filters);
 
       console.log(
         "✅ Search response:",
@@ -554,30 +386,17 @@ function App() {
       );
 
       const searchedJobs =
-        Array.isArray(
-          data?.jobs
-        )
+        Array.isArray(data?.jobs)
           ? data.jobs
-          : Array.isArray(
-              data?.["hydra:member"]
-            )
-              ? data[
-                  "hydra:member"
-                ]
-              : [];
+          : Array.isArray(data?.["hydra:member"])
+            ? data["hydra:member"]
+            : [];
 
-      setJobs(
-        searchedJobs
-      );
+      setJobs(searchedJobs);
 
-      if (
-        typeof data?.total ===
-        "number"
-      ) {
+      if (typeof data?.total === "number") {
 
-        setTotalJobs(
-          data.total
-        );
+        setTotalJobs(data.total);
 
       } else {
 
@@ -586,9 +405,7 @@ function App() {
         );
       }
 
-      setCurrentPage(
-        1
-      );
+      setCurrentPage(1);
 
     } catch (err) {
 
@@ -604,9 +421,7 @@ function App() {
 
     } finally {
 
-      setSearching(
-        false
-      );
+      setSearching(false);
     }
   }
 
@@ -626,9 +441,7 @@ function App() {
       salaryMax: "",
     };
 
-    setFilters(
-      emptyFilters
-    );
+    setFilters(emptyFilters);
 
     setError("");
 
@@ -636,9 +449,7 @@ function App() {
       "🔄 Resetting job filters..."
     );
 
-    await loadJobs(
-      1
-    );
+    await loadJobs(1);
   }
 
 
@@ -664,9 +475,7 @@ function App() {
   // CV FILE CHANGE
   // =======================================================
 
-  function handleFileChange(
-    event
-  ) {
+  function handleFileChange(event) {
 
     const file =
       event.target.files?.[0];
@@ -684,9 +493,7 @@ function App() {
         "Please select a PDF file."
       );
 
-      setSelectedFile(
-        null
-      );
+      setSelectedFile(null);
 
       return;
     }
@@ -695,9 +502,11 @@ function App() {
 
     setMatchError("");
 
-    setSelectedFile(
-      file
-    );
+    setMatchResult(null);
+
+    setMatchedJobId(null);
+
+    setSelectedFile(file);
   }
 
 
@@ -706,49 +515,68 @@ function App() {
   // =======================================================
 
   async function analyzeCV(file) {
-  if (!file) {
-    throw new Error("No CV file provided.");
-  }
 
-  const response = await uploadCV(file);
+    if (!file) {
+      throw new Error(
+        "No CV file provided."
+      );
+    }
 
-  console.log("📄 CV upload response:", response);
-
-  // Symfony returns the CV inside response.cv
-  const uploadedCV = response?.cv;
-
-  if (!uploadedCV?.id) {
-    console.error("❌ CV ID missing from upload response:", response);
-
-    throw new Error(
-      "CV was uploaded, but the CV ID was not returned by the server."
+    console.log(
+      "📄 Uploading CV directly..."
     );
-  }
 
-  console.log("✅ CV saved:", uploadedCV);
-  console.log("🆔 CV ID:", uploadedCV.id);
+    const response =
+      await uploadCV(file);
 
-  // Store only the actual CV object
-  setCv(uploadedCV);
-
-  setSelectedFile(null);
-
-  try {
-    await removePendingCV();
-  } catch (storageError) {
-    console.warn(
-      "⚠️ Could not remove pending CV:",
-      storageError
+    console.log(
+      "📄 CV upload response:",
+      response
     );
+
+    // Symfony returns the CV inside response.cv
+    const uploadedCV =
+      response?.cv;
+
+    if (!uploadedCV?.id) {
+
+      console.error(
+        "❌ CV ID missing from upload response:",
+        response
+      );
+
+      throw new Error(
+        "CV was uploaded, but the CV ID was not returned by the server."
+      );
+    }
+
+    console.log(
+      "✅ CV analyzed and saved:",
+      uploadedCV
+    );
+
+    console.log(
+      "🆔 CV ID:",
+      uploadedCV.id
+    );
+
+    // Store the analyzed CV
+    setCv(uploadedCV);
+
+    // Clear selected file
+    setSelectedFile(null);
+
+    // Clear previous match
+    setMatchResult(null);
+
+    setMatchedJobId(null);
+
+    setMatchError("");
+
+    setError("");
+
+    return uploadedCV;
   }
-
-  sessionStorage.removeItem("resume_cv_analysis");
-
-  setError("");
-  setMatchError("");
-
-  return uploadedCV;
-}
 
 
   // =======================================================
@@ -768,90 +596,27 @@ function App() {
 
     try {
 
-      setUploading(
-        true
-      );
+      setUploading(true);
 
       setError("");
 
       setMatchError("");
 
-
       console.log(
         "================================="
       );
 
       console.log(
-        "🔐 Checking authentication..."
+        "📄 Uploading and analyzing CV..."
+      );
+
+      console.log(
+        "🔓 No authentication required."
       );
 
       console.log(
         "================================="
       );
-
-
-      const currentUser =
-        await getCurrentUser();
-
-
-      // ===================================================
-      // USER NOT LOGGED IN
-      // ===================================================
-
-      if (
-        !currentUser?.authenticated
-      ) {
-
-        console.log(
-          "🔐 User is not logged in."
-        );
-
-        console.log(
-          "💾 Saving CV temporarily..."
-        );
-
-
-        await savePendingCV(
-          selectedFile
-        );
-
-
-        sessionStorage.setItem(
-          "resume_cv_analysis",
-          "true"
-        );
-
-
-        console.log(
-          "✅ CV saved temporarily."
-        );
-
-        console.log(
-          "🔄 Redirecting to Google..."
-        );
-
-
-        window.location.href =
-          "http://127.0.0.1:8000/connect/google";
-
-
-        return;
-      }
-
-
-      // ===================================================
-      // USER IS ALREADY LOGGED IN
-      // ===================================================
-
-      console.log(
-        "✅ User is authenticated."
-      );
-
-      console.log(
-        "👤 User:",
-        currentUser.user
-      );
-
 
       await analyzeCV(
         selectedFile
@@ -871,9 +636,7 @@ function App() {
 
     } finally {
 
-      setUploading(
-        false
-      );
+      setUploading(false);
     }
   }
 
@@ -882,49 +645,83 @@ function App() {
   // AI MATCH CV
   // =======================================================
 
- async function handleMatchCV(jobId) {
-  try {
-    setMatching(true);
-    setMatchError("");
-    setMatchResult(null);
-    setMatchedJobId(null);
+  async function handleMatchCV(jobId) {
 
-    if (!cv?.id) {
+    try {
+
+      setMatching(true);
+
+      setMatchError("");
+
+      setMatchResult(null);
+
+      setMatchedJobId(null);
+
+      if (!cv?.id) {
+
+        setMatchError(
+          "CV ID is missing. Please upload your CV again."
+        );
+
+        return;
+      }
+
+      console.log(
+        "📄 Matching CV:",
+        cv.id
+      );
+
+      console.log(
+        "💼 Matching Job:",
+        jobId
+      );
+
+      const data =
+        await matchCV(
+          cv.id,
+          jobId
+        );
+
+      console.log(
+        "🤖 Match response:",
+        data
+      );
+
+      const analysis =
+        data?.match?.analysis;
+
+      if (!analysis) {
+
+        throw new Error(
+          "Invalid match response from server."
+        );
+      }
+
+      setMatchResult(
+        analysis
+      );
+
+      setMatchedJobId(
+        jobId
+      );
+
+    } catch (error) {
+
+      console.error(
+        "❌ CV matching error:",
+        error
+      );
+
       setMatchError(
-        "CV ID is missing. Please upload your CV again."
+        error.message ||
+        "Failed to match CV with this job."
       );
-      return;
+
+    } finally {
+
+      setMatching(false);
     }
-
-    console.log("📄 Matching CV:", cv.id);
-    console.log("💼 Matching Job:", jobId);
-
-    const data = await matchCV(cv.id, jobId);
-
-    console.log("🤖 Match response:", data);
-
-    const analysis = data?.match?.analysis;
-
-    if (!analysis) {
-      throw new Error(
-        "Invalid match response from server."
-      );
-    }
-
-    setMatchResult(analysis);
-    setMatchedJobId(jobId);
-
-  } catch (error) {
-    console.error("❌ CV matching error:", error);
-
-    setMatchError(
-      error.message || "Failed to match CV with this job."
-    );
-
-  } finally {
-    setMatching(false);
   }
-}
 
 
   // =======================================================
@@ -945,41 +742,23 @@ function App() {
           element={
             <Dashboard
 
-              jobs={
-                jobs
-              }
+              jobs={jobs}
 
-              error={
-                error
-              }
+              error={error}
 
-              cv={
-                cv
-              }
+              cv={cv}
 
-              selectedFile={
-                selectedFile
-              }
+              selectedFile={selectedFile}
 
-              uploading={
-                uploading
-              }
+              uploading={uploading}
 
-              matchError={
-                matchError
-              }
+              matchError={matchError}
 
-              matching={
-                matching
-              }
+              matching={matching}
 
-              matchedJobId={
-                matchedJobId
-              }
+              matchedJobId={matchedJobId}
 
-              matchResult={
-                matchResult
-              }
+              matchResult={matchResult}
 
               onFileChange={
                 handleFileChange
@@ -993,13 +772,9 @@ function App() {
                 handleMatchCV
               }
 
-              filters={
-                filters
-              }
+              filters={filters}
 
-              searching={
-                searching
-              }
+              searching={searching}
 
               onFilterChange={
                 handleFilterChange
@@ -1030,9 +805,7 @@ function App() {
           path="/my-cv"
           element={
             <MyCV
-              cv={
-                cv
-              }
+              cv={cv}
             />
           }
         />
@@ -1047,33 +820,23 @@ function App() {
           element={
             <Jobs
 
-              jobs={
-                jobs
-              }
+              jobs={jobs}
 
-              error={
-                error
-              }
+              error={error}
 
               onMatch={
                 handleMatchCV
               }
 
-              matching={
-                matching
-              }
+              matching={matching}
 
               matchedJobId={
                 matchedJobId
               }
 
-              filters={
-                filters
-              }
+              filters={filters}
 
-              searching={
-                searching
-              }
+              searching={searching}
 
               onFilterChange={
                 handleFilterChange
@@ -1120,13 +883,8 @@ function App() {
           path="/jobs/:id"
           element={
             <JobDetailsPage
-              jobs={
-                jobs
-              }
-
-              cv={
-                cv
-              }
+              jobs={jobs}
+              cv={cv}
             />
           }
         />
@@ -1192,9 +950,7 @@ function App() {
       value += step
     ) {
 
-      options.push(
-        value
-      );
+      options.push(value);
     }
 
     return options;

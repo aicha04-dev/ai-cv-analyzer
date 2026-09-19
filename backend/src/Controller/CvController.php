@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\CV;
-use App\Entity\User;
 use App\Service\FileUploader;
 use App\Service\PdfTextExtractor;
 use App\Service\GeminiService;
@@ -26,24 +25,11 @@ class CvController extends AbstractController
 
         /*
          * =========================================================
-         * 1. CHECK AUTHENTICATED USER
+         * 1. GET UPLOADED FILE
          * =========================================================
-         */
-
-        $user = $this->getUser();
-
-        if (!$user instanceof User) {
-
-            return $this->json([
-                'error' =>
-                    'You must be logged in to upload and analyze a CV.'
-            ], 401);
-        }
-
-        /*
-         * =========================================================
-         * 2. GET UPLOADED FILE
-         * =========================================================
+         *
+         * Authentication is no longer required.
+         * Anyone can upload a CV.
          */
 
         $file = $request->files->get('cv');
@@ -57,7 +43,7 @@ class CvController extends AbstractController
 
         /*
          * =========================================================
-         * 3. CHECK PDF
+         * 2. CHECK PDF
          * =========================================================
          */
 
@@ -72,7 +58,7 @@ class CvController extends AbstractController
 
             /*
              * =====================================================
-             * 4. UPLOAD PDF
+             * 3. UPLOAD PDF
              * =====================================================
              */
 
@@ -80,7 +66,7 @@ class CvController extends AbstractController
 
             /*
              * =====================================================
-             * 5. BUILD FILE PATH
+             * 4. BUILD FILE PATH
              * =====================================================
              */
 
@@ -91,17 +77,19 @@ class CvController extends AbstractController
 
             /*
              * =====================================================
-             * 6. EXTRACT TEXT
+             * 5. EXTRACT TEXT
              * =====================================================
              */
 
-            $cvText = $pdfTextExtractor->extract($filePath);
+            $cvText =
+                $pdfTextExtractor->extract($filePath);
 
             if (trim($cvText) === '') {
 
                 return $this->json([
                     'error' =>
                         'Could not extract text from this PDF.',
+
                     'details' =>
                         'The PDF may be scanned or contain no selectable text.'
                 ], 400);
@@ -109,15 +97,16 @@ class CvController extends AbstractController
 
             /*
              * =====================================================
-             * 7. ANALYZE WITH GEMINI
+             * 6. ANALYZE WITH GEMINI
              * =====================================================
              */
 
-            $analysis = $geminiService->analyzeCv($cvText);
+            $analysis =
+                $geminiService->analyzeCv($cvText);
 
             /*
              * =====================================================
-             * 8. CREATE CV ENTITY
+             * 7. CREATE CV ENTITY
              * =====================================================
              */
 
@@ -145,15 +134,13 @@ class CvController extends AbstractController
             );
 
             /*
-             * Associate CV with authenticated user.
-             */
-
-            $cv->setUser($user);
-
-            /*
              * =====================================================
-             * 9. SAVE TO DATABASE
+             * 8. SAVE TO DATABASE
              * =====================================================
+             *
+             * No User association.
+             *
+             * The CV is now anonymous.
              */
 
             $entityManager->persist($cv);
@@ -162,7 +149,7 @@ class CvController extends AbstractController
 
             /*
              * =====================================================
-             * 10. SUCCESS RESPONSE
+             * 9. SUCCESS RESPONSE
              * =====================================================
              */
 
@@ -171,7 +158,8 @@ class CvController extends AbstractController
                     'CV uploaded and analyzed successfully',
 
                 'cv' => [
-                    'id' => $cv->getId(),
+                    'id' =>
+                        $cv->getId(),
 
                     'title' =>
                         $cv->getTitle(),
@@ -194,18 +182,28 @@ class CvController extends AbstractController
              * =====================================================
              * GEMINI / SERVICE ERROR
              * =====================================================
-             *
-             * Return 503 when an external AI service is
-             * temporarily unavailable.
              */
 
-            $message = $e->getMessage();
+            $message =
+                $e->getMessage();
 
             if (
-                str_contains($message, 'Gemini API') ||
-                str_contains($message, 'Gemini is temporarily unavailable') ||
-                str_contains($message, 'Gemini cURL error') ||
-                str_contains($message, 'Gemini returned')
+                str_contains(
+                    $message,
+                    'Gemini API'
+                ) ||
+                str_contains(
+                    $message,
+                    'Gemini is temporarily unavailable'
+                ) ||
+                str_contains(
+                    $message,
+                    'Gemini cURL error'
+                ) ||
+                str_contains(
+                    $message,
+                    'Gemini returned'
+                )
             ) {
 
                 return $this->json([

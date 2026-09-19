@@ -30,18 +30,31 @@ class CV
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $analysis = null;
 
+    /*
+     * =========================================================
+     * USER RELATIONSHIP
+     * =========================================================
+     *
+     * Authentication is no longer required.
+     *
+     * A CV can now exist without a User.
+     *
+     * We keep the relationship for compatibility with the
+     * existing database and User entity.
+     */
+
     #[ORM\ManyToOne(inversedBy: 'cVs')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?User $user = null;
 
     /**
      * @var Collection<int, JobMatch>
      */
     #[ORM\OneToMany(
-    targetEntity: JobMatch::class,
-    mappedBy: 'cv'
-)]
-private Collection $jobMatches;
+        targetEntity: JobMatch::class,
+        mappedBy: 'cv'
+    )]
+    private Collection $jobMatches;
 
     public function __construct()
     {
@@ -82,8 +95,9 @@ private Collection $jobMatches;
         return $this->uploadAt;
     }
 
-    public function setUploadAt(\DateTimeInterface $uploadAt): static
-    {
+    public function setUploadAt(
+        \DateTimeInterface $uploadAt
+    ): static {
         $this->uploadAt = $uploadAt;
 
         return $this;
@@ -94,8 +108,9 @@ private Collection $jobMatches;
         return $this->analysis;
     }
 
-    public function setAnalysis(?string $analysis): static
-    {
+    public function setAnalysis(
+        ?string $analysis
+    ): static {
         $this->analysis = $analysis;
 
         return $this;
@@ -106,8 +121,9 @@ private Collection $jobMatches;
         return $this->user;
     }
 
-    public function setUser(?User $user): static
-    {
+    public function setUser(
+        ?User $user
+    ): static {
         $this->user = $user;
 
         return $this;
@@ -121,20 +137,35 @@ private Collection $jobMatches;
         return $this->jobMatches;
     }
 
-    public function addJobMatch(JobMatch $jobMatch): static
-    {
-        if (!$this->jobMatches->contains($jobMatch)) {
-            $this->jobMatches->add($jobMatch);
+    public function addJobMatch(
+        JobMatch $jobMatch
+    ): static {
+
+        if (
+            !$this->jobMatches
+                ->contains($jobMatch)
+        ) {
+            $this->jobMatches
+                ->add($jobMatch);
+
             $jobMatch->setCv($this);
         }
 
         return $this;
     }
 
-    public function removeJobMatch(JobMatch $jobMatch): static
-    {
-        if ($this->jobMatches->removeElement($jobMatch)) {
-            if ($jobMatch->getCv() === $this) {
+    public function removeJobMatch(
+        JobMatch $jobMatch
+    ): static {
+
+        if (
+            $this->jobMatches
+                ->removeElement($jobMatch)
+        ) {
+
+            if (
+                $jobMatch->getCv() === $this
+            ) {
                 $jobMatch->setCv(null);
             }
         }

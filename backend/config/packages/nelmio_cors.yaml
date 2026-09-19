@@ -16,6 +16,7 @@ nelmio_cors:
                 - 'https://ai-cv-analyzer-git-main-ai-cv-matcher.vercel.app'
                 - 'https://ai-cv-analyzer-8wwzawj6u-ai-cv-matcher.vercel.app'
                 - 'https://ai-cv-analyzer-6pwjplru7-ai-cv-matcher.vercel.app'
+                - 'https://ai-cv-analyzer-n131fx5l7-ai-cv-matcher.vercel.app'
             allow_credentials: true
             allow_headers: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With']
             allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']

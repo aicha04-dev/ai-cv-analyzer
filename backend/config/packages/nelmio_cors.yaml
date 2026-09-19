@@ -12,6 +12,9 @@ nelmio_cors:
             allow_origin:
                 - 'http://localhost:5173'
                 - 'http://127.0.0.1:5173'
+                - 'https://ai-cv-analyzer-blush.vercel.app'
+                - 'https://ai-cv-analyzer-git-main-ai-cv-matcher.vercel.app'
+                - 'https://ai-cv-analyzer-8wwzawj6u-ai-cv-matcher.vercel.app'
                 - 'https://ai-cv-analyzer-6pwjplru7-ai-cv-matcher.vercel.app'
             allow_credentials: true
             allow_headers: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With']

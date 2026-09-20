@@ -23,8 +23,7 @@ security:
             logout:
                 path: /api/logout
 
-    access_control:
-    - { path: ^/api/job-match$, roles: ROLE_USER }
+    access_control: []
 
 when@test:
     security:

@@ -89,7 +89,7 @@ class GoogleAuthenticator extends AbstractAuthenticator
         string $firewallName
     ): ?Response {
        return new \Symfony\Component\HttpFoundation\RedirectResponse(
-     'http://127.0.0.1:5173/'
+     'https://ai-cv-analyzer-n131fx5l7-ai-cv-matcher.vercel.app/'
 );
     }
 

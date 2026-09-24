@@ -5,7 +5,7 @@ namespace App\Service;
 class GeminiService
 {
     private const GEMINI_URL =
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent';
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent';
         public function __construct(
         private string $apiKey
     ) {
